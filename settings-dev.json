@@ -4,13 +4,13 @@
       "siteKey": ""
     },
     "startTime": 1464968840173,
-    "endTime": 1466101150636,
+    "endTime": 1467101150636,
     "maxTeamSize": 3
   },
   "reCaptcha": {
     "secretKey": ""
   },
-  "pythonPath": "C:\\Python27\\python.exe",
+  "pythonPath": "/usr/bin/python",
   "problems": [
     {
       "id": 0,
