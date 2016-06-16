@@ -1,0 +1,42 @@
+# Meteor packages used by this project, one per line.
+# Check this file (and the other files in this directory) into your repository.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+meteor-base
+session
+blaze-html-templates
+mongo
+random
+less
+useraccounts:bootstrap
+accounts-password
+
+
+kookoskar:bootstrap-select
+jquery
+reywood:publish-composite
+copleykj:livestamp
+maazalik:highcharts
+mouse0270:bootstrap-notify
+tracker
+hilios:jquery.countdown
+aldeed:collection2
+iron:router
+zimme:iron-router-auth
+standard-minifier-css
+standard-minifier-js
+useraccounts:iron-routing
+dburles:collection-helpers
+ecmascript
+ddp-rate-limiter
+alanning:roles
+underscore
+tsega:bootstrap3-datetimepicker@=3.1.3_3
+aldeed:autoform-bs-datetimepicker
+mfactory:admin-lte
+yogiben:admin
+perak:markdown
+email
+perak:codemirror

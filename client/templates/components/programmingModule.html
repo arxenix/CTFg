@@ -1,0 +1,19 @@
+<template name="programmingModule">
+    <select class="select-language" id="select-language-{{id}}">
+        <optgroup label="Programming Language">
+            {{#each allowedLanguages}}
+                <option value="{{this}}">{{getLangName this}}</option>
+            {{else}}
+                <option value="py3">Python 3</option>
+                <option value="py2">Python 2</option>
+                <option value="js">JavaScript</option>
+                <option value="java">Java</option>
+                <option value="r">R</option>
+                <option value="cpp">C++</option>
+                <option value="perl">Perl</option>
+            {{/each}}
+        </optgroup>
+    </select>
+    <br/>
+    <textarea class="programming-area" id="programming-area-{{id}}"></textarea>
+</template>

@@ -1,0 +1,22 @@
+<template name="promo">
+    <div id="promo">
+        <div class="container">
+            <div class="jumbotron">
+                <div class="container">
+                    <div class="v-center">
+                        <div class="text-center">
+                            <h1>CTFg<span class="glyphicon glyphicon-flag" style="color: #5CB85C;"></span></h1>
+                            <h2 class="lato">Promo page</h2>
+                            {{#unless currentUser}}
+                                <br>
+                                <a href="{{pathFor route='register'}}" class="btn btn-success btn-lg btn-huge lato">Sign Up</a>
+                            {{/unless}}
+                            <div id="competition-countdown"></div>
+                            <br><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

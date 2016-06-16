@@ -1,0 +1,52 @@
+<template name="scoreboard">
+    {{> pageTitle}}
+    {{#if Template.subscriptionsReady}}
+        <div class="container">
+            <div>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    {{#each tabNames}}
+                        <li role="presentation" class="{{#if (ifCond @index '===' 0)}}active{{/if}}">
+                            <a href="#tab-{{this}}" aria-controls="eligible" role="tab" data-toggle="tab">{{titleCase this}} Teams</a>
+                        </li>
+                    {{/each}}
+                </ul>
+
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    {{#each tabNames}}
+                        <div role="tabpanel" class="tab-pane {{#if (ifCond @index '===' 0)}}active{{/if}}" id="tab-{{this}}">
+                            {{> highchartsHelper chartId=(getChartId this) chartWidth="100%" chartObject=(scoreboardChart this)}}
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>Name</th>
+                                        <th>School/Organization</th>
+                                        <th>Score</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {{#each (filterTeams this)}}
+                                        <tr>
+                                            <td>{{math @index '+' 1}}</td>
+                                            <td><a href="/team/{{_id}}">{{name}}</a></td>
+                                            <td>{{school}}</td>
+                                            <td>{{score}}</td>
+                                        </tr>
+                                    {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+
+            </div>
+        </div>
+    {{else}}
+        Loading..
+    {{/if}}
+</template>

@@ -1,0 +1,53 @@
+<template name="navbar">
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapsible">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">CTFg<span class="glyphicon glyphicon-flag" style="color: #5CB85C;"></span></a>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar-collapsible">
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a href="{{pathFor route='info'}}"><i class="fa fa-fw fa-info-circle"></i>Info</a></li>
+                    <li><a href="{{pathFor route='scoreboard'}}"><i class="fa fa-fw fa-bar-chart"></i>Scoreboard</a></li>
+                    <li><a href="{{pathFor route='updates'}}"><i class="fa fa-fw fa-refresh"></i>Updates</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {{#if currentUser}}
+                        {{#if (ifCond currentUser.profile.type '===' 'teacher')}}
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{currentUser.username}}<i class="fa fa-caret-down"></i></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{pathFor route='classroom'}}"><i class="fa fa-fw fa-user"></i>Manage Classroom</a></li>
+                                    <li><a href="#" id="logoutButton"><i class="fa fa-fw fa-sign-out"></i>Logout</a></li>
+                                </ul>
+                            </li>
+                        {{else}}
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Competition<i class="fa fa-caret-down"></i></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{pathFor route='problems'}}"><i class="fa fa-fw fa-pencil"></i>Problems</a></li>
+                                    <li><a href="{{pathFor route='programming'}}"><i class="fa fa-fw fa-code"></i>Programming</a></li>
+                                    <li><a href="{{pathFor route='chat'}}"><i class="fa fa-fw fa-comment"></i>Chat</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{currentUser.username}}<i class="fa fa-caret-down"></i></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{pathFor route='profile'}}"><i class="fa fa-fw fa-user"></i>Profile/Team</a></li>
+                                    <li><a href="#" id="logoutButton"><i class="fa fa-fw fa-sign-out"></i>Logout</a></li>
+                                </ul>
+                            </li>
+                        {{/if}}
+                    {{else}}
+                        <li><a href="{{pathFor route='login'}}"><i class="fa fa-fw fa-sign-in"></i>Login</a></li>
+                    {{/if}}
+                </ul>
+            </div>
+        </div>
+    </nav>
+</template>

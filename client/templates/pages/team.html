@@ -1,0 +1,26 @@
+<template name="team">
+    <div class="container">
+        <h3>Team Name: <small>{{team.name}}</small></h3>
+        {{#if team.school}}
+            <h3>School: <small>{{team.school}}</small></h3>
+        {{/if}}
+        <h3>Score: <small>{{team.score}}</small></h3>
+        <h3>Members: </h3>
+        <ul>
+            {{#each team.getMembers}}
+                <li>{{this.username}}</li>
+            {{/each}}
+        </ul>
+        <h3>Charts: </h3>
+        <hr>
+        {{> highchartsHelper chartId="progressChart" chartWidth="100%" chartHeight="100%" chartObject=progressChart}}
+        <hr>
+        {{> highchartsHelper chartId="timeChart" chartWidth="100%" chartHeight="100%" chartObject=timeChart}}
+        <h3>Solves: </h3>
+        <ul>
+            {{#each team.solves}}
+                <li><b>{{name}}</b> - {{livestamp (timeToDate time)}}</li>
+            {{/each}}
+        </ul>
+    </div>
+</template>

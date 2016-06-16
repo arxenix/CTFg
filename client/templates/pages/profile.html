@@ -1,0 +1,76 @@
+<template name="profile">
+    {{> pageTitle title='Profile'}}
+    <br>
+    <div class="container">
+        {{#if currentUser}}
+            {{#if currentUser.profile.team}}
+                <h3>Team Name: <small>{{team.name}}</small></h3>
+                {{#if team.school}}
+                    <h3>School: <small>{{team.school}}</small></h3>
+                {{/if}}
+                <h3>Score: <small>{{team.score}}</small></h3>
+                <h3>Members: </h3>
+                <ul>
+                    {{#each team.getMembers}}
+                        <li>{{this.username}}</li>
+                    {{/each}}
+                </ul>
+                <h3>Charts: </h3>
+                {{> highchartsHelper chartId="progressChart" chartWidth="100%" chartHeight="100%" chartObject=progressChart}}
+                <hr>
+                {{> highchartsHelper chartId="timeChart" chartWidth="100%" chartHeight="100%" chartObject=timeChart}}
+                <h3>Solves: </h3>
+                <ul>
+                    {{#each team.solves}}
+                        <li><b>{{name}}</b> - {{livestamp (timeToDate time)}}</li>
+                    {{/each}}
+                </ul>
+                <hr>
+                <h3>Set School/Organization:</h3>
+                <form class="form-inline" id="setSchoolForm">
+                    <div class="form-group">
+                        <label for="inputSchoolName">School/Organization Name:</label>
+                        <input type="text" class="form-control" id="inputSchoolName" name="inputSchoolName" placeholder="School name">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Set</button>
+                </form>
+                <h3>Join a Class:</h3>
+                <form class="form-inline" id="joinClassForm">
+                    <div class="form-group">
+                        <label for="inputClassCode">Class Code <a href="#" data-toggle="tooltip" title="Obtain this code from your teacher">(?)</a>:</label>
+                        <input type="text" class="form-control" id="inputClassCode" name="inputClassCode" placeholder="The class join code">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Join Class</button>
+                </form>
+                <h3>Team Join Code <a href="#" data-toggle="tooltip" title="Give this code to whoever you want to join your team">(?)</a>:</h3>
+                <div class="input-group">
+                    <input type="text" class="form-control code" value="{{team.code}}" readonly="readonly" onclick="this.focus();this.select()">
+                    <span class="input-group-btn">
+                        <button class="btn btn-success" type="button" id="buttonNewCode"><i class="fa fa-refresh"></i></button>
+                    </span>
+                </div>
+            {{else}}
+                <p>You don't have a team right now! You need to either create a team or join one to participate in the competition.</p>
+                <h3>Join a Team</h3>
+                <form class="form-inline" id="joinForm">
+                    <div class="form-group">
+                        <label for="inputTeamCode">Join Code <a href="#" data-toggle="tooltip" title="Obtain this code from someone who has created a team">(?)</a>:</label>
+                        <input type="text" class="form-control" id="inputTeamCode" name="inputTeamCode" placeholder="The team's join code">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Join</button>
+                </form>
+                <h3>Create a Team</h3>
+                <form class="form-inline" id="createForm">
+                    <div class="form-group">
+                        <label for="inputTeamName">Team Name:</label>
+                        <input type="text" class="form-control" id="inputTeamName" name="inputTeamName" placeholder="Name of your team">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </form>
+            {{/if}}
+        {{else}}
+            Loading...
+        {{/if}}
+    </div>
+    <br>
+</template>

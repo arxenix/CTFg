@@ -1,0 +1,68 @@
+<template name="programming">
+    {{> pageTitle}}
+    <div class="container">
+        <h4>Select a problem: </h4>
+        <select id="select-problem" data-live-search="true" title="Select a problem...">
+            <optgroup label="Problem ID">
+                {{#each programmingProblems}}
+                    {{#if team.hasSolved id}}
+                        <option value="{{id}}"><span style="color: #28b62c;">{{name}}<i class="fa fa-check"></i></span></option>
+                    {{else}}
+                        {{#if team.hasUnlocked id}}
+                            <option value="{{id}}">{{name}}</option>
+                        {{else}}
+                            <option value="{{id}}">{{name}}<i class="fa fa-lock"></i></option>
+                        {{/if}}
+                    {{/if}}
+                {{/each}}
+            </optgroup>
+        </select>
+        <br>
+        <br>
+        {{#if selectedProblem}}
+            Selected: {{selectedProblem.name}}
+
+            {{> problemPanel selectedProblem}}
+
+            <div class="jumbotron">
+                <p>Your program should read data from the system input and write to the system output.</p>
+                <nav class="navbar navbar-inverse" style="margin-bottom: 0;">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mininav" aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="javascript:void(0);">Programming Editor</a>
+                        </div>
+                        <div class="collapse navbar-collapse" id="mininav">
+                            <form class="navbar-form navbar-left">
+                                <ul class="nav navbar-nav">
+                                    <a class="btn btn-success" href="javascript:void(0);" data-toggle="tooltip"><i class="fa fa-cogs"></i> Run Code</a>
+                                </ul>
+                            </form>
+                            <form class="navbar-form navbar-right">
+                                <ul class="nav navbar-nav">
+                                    <select id="select-language">
+                                        <optgroup label="Programming Language">
+                                            <option value="py3">Python 3</option>
+                                            <option value="py2">Python 2</option>
+                                            <option value="js">JavaScript</option>
+                                            <option value="java">Java</option>
+                                            <option value="r">R</option>
+                                            <option value="cpp">C++</option>
+                                            <option value="perl">Perl</option>
+                                        </optgroup>
+                                    </select>
+                                </ul>
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+                <textarea id="programming-area"></textarea>
+            </div>
+        {{/if}}
+    </div>
+</template>

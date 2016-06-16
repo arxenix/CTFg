@@ -1,0 +1,46 @@
+var langMap = {
+    "py2": "text/x-python",
+    "py3": "text/x-python",
+    "java": "text/x-java",
+    "cpp": "text/x-c++src",
+    "r": "text/x-rsrc",
+    "perl": "text/x-perl",
+    "js": "text/javascript"
+};
+
+Template.programmingModule.helpers({
+    hasSolved(probId) {
+        var team = Teams.findOne({});
+        if(team) {
+            return team.hasSolved(probId);
+        }
+    },
+    getLangName(lang) {
+        return ProblemSchema.allowedLanguages.autoform.options[lang];
+    }
+});
+
+Template.programmingModule.events({
+    /* Handle programming language changes */
+    "change .select-language": function(e) {
+        var newValue = e.currentTarget.value;
+        var editor = $('.CodeMirror')[0].CodeMirror;
+        if(newValue in langMap) {
+            editor.setOption("mode", langMap[newValue]);
+        }
+    }
+});
+
+Template.programmingModule.onRendered(function(){
+    var id = this.data.id;
+    CodeMirror.fromTextArea($("#programming-area-"+id).get(0), {
+        lineNumbers: true,
+        mode: "text/x-python"
+    });
+    $("#select-language-"+id).selectpicker();
+    /*CodeMirror.fromTextArea($(".programming-area").get(0), {
+        lineNumbers: true,
+        mode: "text/x-python" // set any of supported language modes here
+    });
+    $('#select-language').selectpicker();*/
+});

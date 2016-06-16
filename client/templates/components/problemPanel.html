@@ -1,0 +1,42 @@
+<template name="problemPanel">
+    <div class="panel {{#if description}}{{#if hasSolved id}}panel-success{{else}}panel-default{{/if}}{{else}}panel-warning{{/if}}">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <a data-target="#panel-body-{{id}}" data-toggle="{{#if description}}collapse{{/if}}" style="display: block;" class="no-link {{#unless description}}panel-title-link{{/unless}}">
+                    {{#unless description}}
+                        <i class="fa fa-lock"></i>
+                    {{/unless}}
+                    <b>{{name}}</b> {{points}} Points
+                            <span style="float: right;">
+                                    {{category}} -
+                                {{#if hasSolved id}}
+                                    <span style="color: green;">Solved</span>
+                                {{else}}
+                                    <span style="color: gray;">Unsolved</span>
+                                {{/if}}
+                            </span>
+                </a>
+            </h3>
+        </div>
+        <div class="panel-body collapse {{#unless hasSolved id}}{{#if description}}in{{/if}}{{/unless}}" id="panel-body-{{id}}">
+            <a href="#" id="solvers-list-{{id}}" class="solvers-list">{{getSolvers.fetch.length}} Solvers</a>
+            {{#if description}}
+                {{#markdown}}{{{description}}}{{/markdown}}
+
+                {{#if this.isProgramming}}
+                    <p>Programming problem!</p>
+                    {{>programmingModule this}}
+                {{else}}
+                    <form class="form-inline submit-answer-form" id="submit-problem-{{id}}">
+                        <input type="text" class="form-control" autocomplete="off" name="answer" disabled="{{hasSolved id}}">
+                        <input type="submit" class="btn btn-primary" value="Submit!" disabled="{{hasSolved id}}">
+                        <button type="button" data-target="#panel-footer-{{id}}" data-toggle="collapse" class="btn btn-info">Show Hint</button>
+                    </form>
+                {{/if}}
+            {{/if}}
+        </div>
+        <div class="panel-footer collapse" id="panel-footer-{{id}}">
+            {{#markdown}}{{{hint}}}{{/markdown}}
+        </div>
+    </div>
+</template>

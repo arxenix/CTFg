@@ -1,0 +1,9 @@
+<template name="problems">
+    {{> pageTitle title='Problems'}}
+    <br>
+    <div class="container">
+        {{#each problems}}
+            {{> problemPanel this}}
+        {{/each}}
+    </div>
+</template>
