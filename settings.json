@@ -1,0 +1,72 @@
+{
+  "public": {
+    "reCaptcha": {
+      "siteKey": ""
+    },
+    "startTime": 1464968840173,
+    "endTime": 1467101150636,
+    "maxTeamSize": 3
+  },
+  "reCaptcha": {
+    "secretKey": ""
+  },
+  "pythonPath": "/usr/bin/python",
+  "problems": [
+    {
+      "id": 0,
+      "name": "Test Problem 1",
+      "points": 10,
+      "description": "This is a test problem worth 10 points. Descriptions and hints can contain *markdown*",
+      "hint": "Answer is `answer`",
+      "category": "Miscellaneous",
+      "grader": "prob1.js",
+      "requirements": [],
+      "solvers": []
+    },
+    {
+      "id": 1,
+      "name": "Programming Quiz",
+      "points": 20,
+      "description": "What is the most common first string that you print when you start learning a programming language.",
+      "hint": "Hello World",
+      "category": "Programming",
+      "grader": "prob2.py",
+      "requirements": [],
+      "solvers": []
+    },
+    {
+      "id": 2,
+      "name": "Leonardo Bonacci",
+      "points": 25,
+      "description": "Enter the 100th fibonacci number",
+      "hint": "Do you even fibonacci?",
+      "category": "Math",
+      "grader": "prob3.py",
+      "requirements": [0, 1],
+      "solvers": []
+    },
+    {
+      "id": 3,
+      "name": "Love Laces",
+      "points": 100,
+      "description": "What woman is widely considered to be the first computer scientist?",
+      "hint": "Her dad was a pretty good poet",
+      "category": "Miscellaneous",
+      "grader": "prob4.js",
+      "requirements": [2],
+      "solvers": []
+    },
+    {
+      "id": 4,
+      "name": "Programming Beginner",
+      "points": 100,
+      "description": "Now that you passed the programming quiz, write a program to do just that!",
+      "hint": "```\nprint \"hello world\"\n```",
+      "type": "programming",
+      "category": "Programming",
+      "grader": "prob4.js",
+      "requirements": [1],
+      "solvers": []
+    }
+  ]
+}
