@@ -33,14 +33,11 @@ Template.programmingModule.events({
 
 Template.programmingModule.onRendered(function(){
     var id = this.data.id;
+    var selectLang = $("#select-language-"+id);
+    selectLang.selectpicker();
+    console.log(selectLang.options[0]);
     CodeMirror.fromTextArea($("#programming-area-"+id).get(0), {
         lineNumbers: true,
         mode: "text/x-python"
     });
-    $("#select-language-"+id).selectpicker();
-    /*CodeMirror.fromTextArea($(".programming-area").get(0), {
-        lineNumbers: true,
-        mode: "text/x-python" // set any of supported language modes here
-    });
-    $('#select-language').selectpicker();*/
 });
