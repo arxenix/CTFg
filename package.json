@@ -1,0 +1,10 @@
+{
+  "name": "CTFg",
+  "description": "CTF/Programming competition platform in Meteor.js",
+  "scripts": {
+    "start": "meteor run"
+  },
+  "dependencies": {
+    "meteor-node-stubs": "~0.2.0"
+  }
+}
