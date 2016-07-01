@@ -93,6 +93,7 @@ Meteor.methods({
                             if(!team.hasSolved(probId)) {
                                 var problem = Problems.findOne({id: probId});
                                 if(problem) {
+                                    
                                     //console.log("problem found");
                                     var fut = new Future();
                                     var graderFile;
@@ -190,10 +191,4 @@ Meteor.methods({
         }
         else throw new Meteor.Error("invalid-user", "The current user is invalid for joining a class.");
     }
-    /*sendVerificationEmail: function() {
-        if(Meteor.user()) {
-            return Accounts.sendVerificationEmail(Meteor.userId());
-        }
-        else throw new Meteor.Error("You are not currently logged in!");
-    }*/
 });
