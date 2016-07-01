@@ -93,7 +93,11 @@ Meteor.methods({
                             if(!team.hasSolved(probId)) {
                                 var problem = Problems.findOne({id: probId});
                                 if(problem) {
-                                    var submission = ProgrammingSubmissions.insert({problem: probId, program: program, team: Meteor.user().profile.team, submitTime: currentDate, language: lang});
+                                    if(problem.allowedLanguages && problem.allowedLanguages.indexOf(lang)==-1) {
+                                        throw new Meteor.Error("invalid-language","Invalid language selection.");
+                                    }
+
+                                    var submission = ProgrammingSubmissions.insert({problem: probId, program: program, team: Meteor.user().profile.team, submitTime: currentDate, language: lang, result: {completed: false}});
                                     if(submission) {
                                         console.log("Sending program to grading server: "+Meteor.settings.gradingServer);
                                         HTTP.call( 'POST', Meteor.settings.gradingServer, {
@@ -105,23 +109,9 @@ Meteor.methods({
                                             }
                                         }, function( error, response ) {
                                             if ( error ) {
-                                                console.log( error );
+                                                console.error(error);
                                             } else {
-                                                console.log( response );
-                                                /*
-                                                 This will return the HTTP response object that looks something like this:
-                                                 {
-                                                 content: "String of content...",
-                                                 data: {
-                                                 "id": 101,
-                                                 "title": "Title of our new post",
-                                                 "body": "Body of our new post",
-                                                 "userId": 1337
-                                                 },
-                                                 headers: {  Object containing HTTP response headers }
-                                                 statusCode: 201
-                                                 }
-                                                 */
+                                                console.log( "Sent program to grading server" );
                                             }
                                         });
                                         return {message: "Program successfully submitted for grading."};

@@ -1,6 +1,3 @@
-/**
- * Created by Ankur on 5/23/2016.
- */
 sortTeams = function(teams) {
     teams.sort(function(a,b) {
         if(a.score>b.score)

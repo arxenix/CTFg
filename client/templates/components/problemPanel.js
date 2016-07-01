@@ -11,7 +11,7 @@ Template.problemPanel.events({
     /* Submit an answer to a problem */
     'submit .submit-answer-form': function(e) {
         e.preventDefault(); // Don't submit it!
-        var id = parseInt(e.target.getAttribute('id').split("\-")[2]);
+        var id = this.id;
         Meteor.call('submitAnswer', id, e.target.answer.value, function(err, data) {
             if(err) {
                 console.log(err);
@@ -32,12 +32,39 @@ Template.problemPanel.events({
             }
         });
     },
+    /* Submit an answer to a program */
+    'submit .submit-program-form': function(e) {
+        e.preventDefault(); // Don't submit it!
+        if(this.programfile) {
+            Meteor.call('submitProgram', this.id, this.programfile, "python/latest", function(err, data) {
+                if(err) {
+                    console.log(err);
+                    Session.set("error", err.reason);
+                }
+                else {
+                    console.log(data);
+                    if(data.correct) {
+                        console.log("correct");
+                        Session.set("success", data.message);
+                        $('#panel-body-'+id).collapse('hide');
+                        $('#panel-footer-'+id).collapse('hide');
+                        $('#submit-problem-'+id)[0].reset();
+                    }
+                    else {
+                        Session.set("warning", data.message);
+                    }
+                }
+            });
+        }
+        else {
+            Session.set("warning", "You must upload a program first");
+        }
+    },
     /* Show teams that have solved a problem */
     'click .solvers-list': function(e) {
         e.preventDefault();
         var id = parseInt(e.currentTarget.getAttribute('id').split("\-")[2]);
 
-        console.log("test");
         //var team = Meteor.user().getTeam();
         var problem = Problems.findOne({id: id});
         if(problem.getSolvers().fetch().length>0) {
@@ -68,6 +95,26 @@ Template.problemPanel.events({
                 onEscape: function(){},
                 backdrop: true
             });
+        }
+    },
+    
+    'change .program-input': function(e) {
+        var instance = this;
+        //e.preventDefault();
+        console.log("Uploaded file!");
+        // Check for the various File API support.
+        if (window.File && window.FileReader && window.FileList && window.Blob) {
+            if(e.target.files && e.target.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var contents = e.target.result;
+                    console.log(contents);
+                    instance.programfile = contents;
+                };
+                reader.readAsText(e.target.files[0]);
+            }
+        } else {
+            Session.set("warning", "File reading is not supported by your browser! Use the program editor instead.");
         }
     }
 });

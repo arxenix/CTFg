@@ -1,6 +1,3 @@
-/**
- * Created by Ankur on 5/24/2016.
- */
 Template.problems.helpers({
     problems() {
         //return Problems.find({type: "short_answer"}, {sort: {id: 1}});

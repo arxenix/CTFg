@@ -73,6 +73,19 @@ Meteor.publishComposite('unlockedProblems', {
     ]
 });
 
+Meteor.publishComposite('programmingSubmissions', {
+    find: function() {
+        return Meteor.users.find({_id: this.userId});
+    },
+    children: [
+        {
+            find: function(user) {
+                return ProgrammingSubmissions.find({team: user.profile.team}, {fields: {submitTime: 1, result: 1, problem: 1, team: 1}});
+            }
+        }
+    ]
+});
+
 Meteor.publish('updates', function() {
     var date = new Date();
     return Updates.find({time: {$lte: date}});

@@ -24,8 +24,13 @@
                 {{#markdown}}{{{description}}}{{/markdown}}
 
                 {{#if this.isProgramming}}
-                    <p>Programming problem!</p>
-                    {{>programmingModule this}}
+                    <form class="form-inline submit-program-form" id="submit-program-{{id}}">
+                        <label class="control-label">Select Program File</label>
+                        <input id="program-input-{{id}}" name="programinput" type="file" class="program-input btn btn-primary">
+                        <br>
+                        <input type="submit" class="btn btn-primary" value="Submit!" disabled="{{hasSolved id}}">
+                        <button type="button" data-target="#panel-footer-{{id}}" data-toggle="collapse" class="btn btn-info">Show Hint</button>
+                    </form>
                 {{else}}
                     <form class="form-inline submit-answer-form" id="submit-problem-{{id}}">
                         <input type="text" class="form-control" autocomplete="off" name="answer" disabled="{{hasSolved id}}">

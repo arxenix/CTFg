@@ -1,6 +1,3 @@
-/**
- * Created by Ankur on 5/21/2016.
- */
 Template.profile.helpers({
     team: function() {
         return Teams.findOne({});
