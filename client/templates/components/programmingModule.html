@@ -4,13 +4,13 @@
             {{#each allowedLanguages}}
                 <option value="{{this}}">{{getLangName this}}</option>
             {{else}}
-                <option value="py3">Python 3</option>
-                <option value="py2">Python 2</option>
-                <option value="js">JavaScript</option>
-                <option value="java">Java</option>
-                <option value="r">R</option>
-                <option value="cpp">C++</option>
-                <option value="perl">Perl</option>
+                <option value="python/latest">Python 3</option>
+                <option value="python/2">Python 2</option>
+                <option value="javascript/latest">JavaScript</option>
+                <option value="java/latest">Java</option>
+                <option value="ruby/latest">Ruby</option>
+                <option value="clang/latest">C++</option>
+                <option value="perl/latest">Perl</option>
             {{/each}}
         </optgroup>
     </select>
