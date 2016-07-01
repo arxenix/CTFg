@@ -81,6 +81,67 @@ Meteor.methods({
         }
         else throw new Meteor.Error("invalid-user", "The current user is invalid for team settings.");
     },
+    submitProgram(probId, program, lang) {
+        var currentDate = Date.now();
+        if(currentDate > Meteor.settings.public.startTime) {
+            if(currentDate < Meteor.settings.public.endTime) {
+                if(Meteor.user() && Meteor.user().profile.team) {
+                    //TODO restrict program size
+                    if(_.isString(program) && !_.isEmpty(program)) {
+                        var team = Teams.findOne({_id: Meteor.user().profile.team});
+                        if(team) {
+                            if(!team.hasSolved(probId)) {
+                                var problem = Problems.findOne({id: probId});
+                                if(problem) {
+                                    var submission = ProgrammingSubmissions.insert({problem: probId, program: program, team: Meteor.user().profile.team, submitTime: currentDate, language: lang});
+                                    if(submission) {
+                                        console.log("Sending program to grading server: "+Meteor.settings.gradingServer);
+                                        HTTP.call( 'POST', Meteor.settings.gradingServer, {
+                                            data: {
+                                                program: program,
+                                                lang: lang,
+                                                pid: problem.grader,
+                                                tid: Meteor.user().profile.team
+                                            }
+                                        }, function( error, response ) {
+                                            if ( error ) {
+                                                console.log( error );
+                                            } else {
+                                                console.log( response );
+                                                /*
+                                                 This will return the HTTP response object that looks something like this:
+                                                 {
+                                                 content: "String of content...",
+                                                 data: {
+                                                 "id": 101,
+                                                 "title": "Title of our new post",
+                                                 "body": "Body of our new post",
+                                                 "userId": 1337
+                                                 },
+                                                 headers: {  Object containing HTTP response headers }
+                                                 statusCode: 201
+                                                 }
+                                                 */
+                                            }
+                                        });
+                                        return {message: "Program successfully submitted for grading."};
+                                    }
+                                    else throw new Meteor.Error("invalid-submission", "Invalid submission properties!");
+                                }
+                                else throw new Meteor.Error("invalid-problem", "Invalid problem ID!");
+                            }
+                            else throw new Meteor.Error("already-solved", "Your team has already solved this problem.");
+                        }
+                        else throw new Meteor.Error("invalid-team", "The user's team was not found.");
+                    }
+                    else throw new Meteor.Error("invalid-answer", "The provided answer was empty.");
+                }
+                else throw new Meteor.Error("invalid-user", "The current user is invalid for submitting problem answers.");
+            }
+            else throw new Meteor.Error("already-ended", "The contest has ended! Problem submissions are no longer allowed.");
+        }
+        else throw new Meteor.Error("not-started", "The contest has not started yet!");
+    },
     submitAnswer(probId, answer) {
         var currentDate = Date.now();
         if(currentDate > Meteor.settings.public.startTime) {

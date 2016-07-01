@@ -10,6 +10,7 @@
   "reCaptcha": {
     "secretKey": ""
   },
+  "gradingServer": "http://grading.example.com/",
   "pythonPath": "/usr/bin/python",
   "problems": [
     {

@@ -1,15 +1,11 @@
-/**
- * Created by Ankur on 5/24/2016.
- */
-
 var langMap = {
-    "py2": "text/x-python",
-    "py3": "text/x-python",
-    "java": "text/x-java",
-    "cpp": "text/c-c++src",
-    "r": "text/x-rsrc",
-    "perl": "text/x-perl",
-    "js": "text/javascript"
+    "python/2": "text/x-python",
+    "python/latest": "text/x-python",
+    "java/latest": "text/x-java",
+    "clang/latest": "text/c-c++src",
+    "ruby/latest": "text/x-rsrc",
+    "perl/latest": "text/x-perl",
+    "javascript/latest": "text/javascript"
 };
 
 Template.programming.events({
