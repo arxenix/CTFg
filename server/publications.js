@@ -90,7 +90,3 @@ Meteor.publish('updates', function() {
     var date = new Date();
     return Updates.find({time: {$lte: date}});
 });
-
-Meteor.publish("classes", function() {
-    return Classes.find({teacher: this.userId});
-});

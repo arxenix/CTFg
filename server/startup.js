@@ -8,13 +8,15 @@ Meteor.users.deny({
 Meteor.startup(function () {
     console.log("Starting server...");
     console.log("Loading problems...");
-    Meteor.settings.problems.forEach(function(prob){
-        if(!Problems.findOne({id: prob.id})) {
+    var count = Problems.find({}).count();
+    if(count===0) {
+        Meteor.settings.problems.forEach(function(prob){
             Problems.insert(prob);
             console.log("Added problem id: "+prob.id);
-        }
-    });
-    console.log("Loaded "+Problems.find().count()+" problems.");
+            count++;
+        });
+    }
+    console.log("Loaded "+count+" problems.");
 });
 
 Meteor.rootPath = Npm.require('path').resolve('.').split('.meteor')[0];

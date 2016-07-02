@@ -88,6 +88,7 @@ Meteor.methods({
                 if(Meteor.user() && Meteor.user().profile.team) {
                     //TODO restrict program size
                     if(_.isString(program) && !_.isEmpty(program)) {
+                        if(program.length>=10000) throw new Meteor.Error("too-large", "Submitted program is too large!");
                         var team = Teams.findOne({_id: Meteor.user().profile.team});
                         if(team) {
                             if(!team.hasSolved(probId)) {
@@ -104,7 +105,8 @@ Meteor.methods({
                                             data: {
                                                 program: program,
                                                 lang: lang,
-                                                pid: problem.grader,
+                                                pid: problem.id,
+                                                grader: problem.grader,
                                                 tid: Meteor.user().profile.team
                                             }
                                         }, function( error, response ) {
@@ -200,46 +202,5 @@ Meteor.methods({
             else throw new Meteor.Error("already-ended", "The contest has ended! Problem submissions are no longer allowed.");
         }
         else throw new Meteor.Error("not-started", "The contest has not started yet!");
-    },
-    createClass(className) {
-        if(Meteor.user() && Meteor.user().profile.type==='teacher') {
-            className = className.trim();
-            if(className && className.length>=1 && className.length<32 && className.match(/^[0-9a-zA-Z ]+$/)) {
-                //make sure that class doesn't exist ...
-                if(!Classes.findOne({name:className, teacher: Meteor.userId()})) {
-                    Classes.insert({
-                        name: className,
-                        teacher: Meteor.userId(),
-                        teams: [],
-                        code: "class_"+Random.id(32)
-                    });
-                    return {message: "Class created."};
-                }
-                else throw new Meteor.Error("class-exists", "You have already created a class with this name.");
-            }
-            else throw new Meteor.Error("invalid-name", "The provided class name is invalid. (Must be alphanumeric and less than 32 letters)");
-        }
-        else throw new Meteor.Error("invalid-user", "The current user is invalid for creating a class.");
-    },
-    joinClass(classCode) {
-        //if has team, and not a teacher..
-        if(Meteor.user() && Meteor.user().profile.team) {
-            var team = Meteor.user().getTeam();
-            if(team) {
-                if(!team.classId) {
-                    classCode = classCode.trim();
-                    var class_ = Classes.findOne({code: classCode});
-                    if(class_) {
-                        Classes.update(class_._id, {$push: {teams: team._id}});
-                        Teams.update(team._id, {$set: {"classId": class_._id}});
-                        return {message: "Joined class!"};
-                    }
-                    else throw new Meteor.Error("The provided class code does not correspond to any class.");
-                }
-                else throw new Meteor.Error("Your team is already in a class!");
-            }
-            else throw new Meteor.Error("invalid-team", "The user's team was not found.");
-        }
-        else throw new Meteor.Error("invalid-user", "The current user is invalid for joining a class.");
     }
 });

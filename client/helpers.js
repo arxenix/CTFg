@@ -1,15 +1,3 @@
-/**
- * Created by Ankur on 11/11/2015.
- */
-
-Template.classroom.helpers({
-    classes: function() {
-        return Classes.find({});
-    }
-});
-
-
-
 /* GLOBAL HELPERS */
 Handlebars.registerHelper("timeToDate", function(time) {
     return new Date(time);

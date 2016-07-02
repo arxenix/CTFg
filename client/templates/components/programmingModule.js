@@ -3,7 +3,7 @@ var langMap = {
     "python/latest": "text/x-python",
     "java/latest": "text/x-java",
     "clang/latest": "text/x-c++src",
-    "ruby/latest": "text/x-rsrc",
+    "ruby/latest": "text/text/x-ruby",
     "perl/latest": "text/x-perl",
     "javascript/latest": "text/javascript"
 };

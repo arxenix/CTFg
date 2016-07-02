@@ -63,9 +63,7 @@ Template.problemPanel.events({
     /* Show teams that have solved a problem */
     'click .solvers-list': function(e) {
         e.preventDefault();
-        var id = parseInt(e.currentTarget.getAttribute('id').split("\-")[2]);
-
-        //var team = Meteor.user().getTeam();
+        var id = this.id;
         var problem = Problems.findOne({id: id});
         if(problem.getSolvers().fetch().length>0) {
             //TODO Make it display a table that includes whether the team is eligible and show time solved...
@@ -82,7 +80,7 @@ Template.problemPanel.events({
     /* Show problem requirements */
     'click .panel-title-link': function(e) {
         e.preventDefault();
-        var id = parseInt(e.currentTarget.getAttribute('href').split("\-")[2]);
+        var id = this.id;
         var problem = Problems.findOne({id: id});
         if(problem.requirements && problem.requirements.length>0) {
             var list = "";
@@ -100,7 +98,6 @@ Template.problemPanel.events({
     
     'change .program-input': function(e) {
         var instance = this;
-        //e.preventDefault();
         console.log("Uploaded file!");
         // Check for the various File API support.
         if (window.File && window.FileReader && window.FileList && window.Blob) {
