@@ -14,7 +14,6 @@ useraccounts:bootstrap
 accounts-password
 
 
-kookoskar:bootstrap-select
 jquery
 reywood:publish-composite
 copleykj:livestamp
