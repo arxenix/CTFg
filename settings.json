@@ -68,6 +68,18 @@
       "grader": "prob4.js",
       "requirements": [1],
       "solvers": []
+    },
+    {
+      "id": 5,
+      "name": "Adding",
+      "points": 150,
+      "description": "Write a program to add 2 numbers together.\nThe first line of input contains n, followed by n lines of 'a + b', where a and b are 2 integers to add together.\nExample input:\n```\n3\n2 + 7\n4 + 5\n1000 + 1991\n```\nExample output:\n'''9\n9\n2991\n'''",
+      "hint": "Find a first grader if you need a hint",
+      "type": "programming",
+      "category": "Programming",
+      "grader": "add",
+      "requirements": [4],
+      "solvers": []
     }
   ]
 }
